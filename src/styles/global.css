@@ -1,0 +1,90 @@
+@import "tailwindcss";
+@import "@fontsource-variable/outfit";
+
+@theme {
+  /* Light palette (Scandinavian) */
+  --color-bg: #f7f7f5;
+  --color-surface: #ffffff;
+  --color-surface-muted: #eef0f2;
+  --color-surface-elevated: #e7eaee;
+  --color-border: #d6dadd;
+  --color-text: #101216;
+  --color-text-2: #4b5563;
+  --color-text-3: #7b8794;
+  --color-accent: #0e9aa7;
+  --color-accent-soft: #7dd4d4;
+  --color-accent-muted: #c6ecec;
+  --color-accent-light: #e3f5f5;
+
+  /* Dark palette */
+  --color-dark-bg: #0f1115;
+  --color-dark-surface: #161a21;
+  --color-dark-surface-2: #1d222b;
+  --color-dark-border: #2f3541;
+  --color-dark-text: #f8fafc;
+  --color-dark-text-2: #c3c9d4;
+  --color-dark-text-3: #8d96a5;
+  --color-dark-accent: #38d9d9;
+
+  /* Typography */
+  --font-sans: 'Outfit Variable', 'Outfit', system-ui, sans-serif;
+  --font-mono: ui-monospace, 'JetBrains Mono', 'Cascadia Code', monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Animations ──────────────────────────────────────────── */
+
+@keyframes waveform {
+  0%, 100% { transform: scaleY(0.3); }
+  50%       { transform: scaleY(1); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Scroll reveal ───────────────────────────────────────── */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.3s; }
+.reveal-d4 { transition-delay: 0.4s; }
