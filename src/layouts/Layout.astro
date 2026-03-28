@@ -7,7 +7,7 @@ interface Props {
 }
 
 const {
-  title = 'Absolute Ear — Train Your Pitch',
+  title = 'Absolute Ear — Train Your Ears',
   description = 'Build reliable pitch recognition through progressive, focused practice. Start with three notes. Master all twelve.',
 } = Astro.props
 ---
@@ -28,8 +28,20 @@ const {
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/icon.png" />
+
+    <!-- Open Graph image -->
+    <meta property="og:image" content="https://absoluteear.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://absoluteear.com/og-image.png" />
   </head>
   <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <slot />
 
     <!-- Scroll reveal observer -->
@@ -39,6 +51,7 @@ const {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               entry.target.classList.add('is-visible')
+              observer.unobserve(entry.target)
             }
           })
         },

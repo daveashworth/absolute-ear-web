@@ -1,0 +1,177 @@
+---
+import Layout from '../layouts/Layout.astro'
+import SupportContact from '../components/SupportContact.tsx'
+import LegalNav from '../components/LegalNav.astro'
+import SiteFooter from '../components/SiteFooter.astro'
+
+const FAQS = [
+  {
+    q: 'How do I unlock the next note?',
+    a: 'Each module unlocks once you score 80% or higher on the current one. The number of questions per module varies, so the exact attempt count differs — but the accuracy threshold is the same throughout. There are no shortcuts; the requirement exists to ensure genuine retention before you move on.',
+  },
+  {
+    q: 'Can I use Absolute Ear without creating an account?',
+    a: 'Yes. In guest mode you can complete and replay any 5 modules with no account required — your progress is stored locally on your device. The modules available to you depend on the dependency structure of the curriculum, so you can mix and match (for example, some solo note modules and an interval training module) rather than being locked to a fixed sequence. To continue beyond that you\'ll need to create a free account. From there you can unlock the full app with a one-time purchase, or subscribe for access to all current and future content as we continue to add new modules.',
+  },
+  {
+    q: 'How do I cancel my subscription?',
+    a: 'Subscriptions are managed entirely through Apple or Google, not through us. On iOS, go to Settings → your name → Subscriptions. On Android, open the Google Play Store → Profile → Payments & subscriptions → Subscriptions.',
+  },
+  {
+    q: 'My progress isn\'t syncing between devices.',
+    a: 'Make sure you\'re signed in to the same account on both devices and that you have an active internet connection. If the issue persists, sign out and back in on the device that\'s out of sync — this triggers a fresh pull from the server.',
+  },
+  {
+    q: 'How do I delete my account and data?',
+    a: 'You can delete your account directly from within the app. This immediately and permanently removes all your personal data and practice history from your device and our servers. You can also request deletion by emailing us.',
+  },
+  {
+    q: 'The audio isn\'t playing correctly.',
+    a: 'Check that your device is not set to silent mode — on iOS this affects in-app audio even when media volume is up. Also try closing and reopening the app. If the issue continues, email us with your device model and OS version.',
+  },
+]
+---
+
+<Layout
+  title="Support — Absolute Ear"
+  description="Get help with Absolute Ear. Find answers to common questions or send us an email."
+>
+  <LegalNav pageTitle="Support" />
+
+  <!-- ── CONTENT ──────────────────────────────────────────────── -->
+  <main id="main-content" style="background:#f7f7f5; min-height:100dvh;">
+    <div class="max-w-2xl mx-auto px-6 py-16 sm:py-24">
+
+      <!-- Header -->
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-1 h-5 rounded-full" style="background:#0e9aa7;"></div>
+        <span style="font-size:11px; font-family:var(--font-mono); color:#0e9aa7; text-transform:uppercase; letter-spacing:0.2em;">
+          Help
+        </span>
+      </div>
+      <h1 style="font-size:clamp(2rem,5vw,3rem); font-weight:700; letter-spacing:-0.03em; color:#0f1115; line-height:1.1; margin-bottom:1rem;">
+        Support
+      </h1>
+      <p class="lead">
+        Find answers to common questions below. If you don't see what you're looking for,
+        email us — we read every message.
+      </p>
+
+      <!-- FAQ -->
+      <div class="faq-list">
+        {FAQS.map((item) => (
+          <details class="faq-item">
+            <summary class="faq-summary">
+              <span>{item.q}</span>
+              <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </summary>
+            <p class="faq-answer">{item.a}</p>
+          </details>
+        ))}
+      </div>
+
+      <!-- Contact -->
+      <div class="contact-block">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-1 h-5 rounded-full" style="background:#0e9aa7;"></div>
+          <span style="font-size:11px; font-family:var(--font-mono); color:#0e9aa7; text-transform:uppercase; letter-spacing:0.2em;">
+            Contact
+          </span>
+        </div>
+        <h2 style="font-size:1.375rem; font-weight:700; letter-spacing:-0.02em; color:#0f1115; margin-bottom:0.75rem;">
+          Still need help?
+        </h2>
+        <p style="font-size:0.9375rem; line-height:1.75; color:#3d4451; margin-bottom:1.75rem; max-width:42ch;">
+          Describe your issue and include your device model and app version — it helps us
+          get to the bottom of things faster.
+        </p>
+
+        <!-- React island: assembles email client-side only -->
+        <SupportContact client:load />
+      </div>
+
+    </div>
+  </main>
+
+  <SiteFooter activePage="support" />
+</Layout>
+
+<style>
+  .lead {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: #3d4451;
+    margin-bottom: 0;
+  }
+
+  /* ── FAQ ── */
+  .faq-list {
+    margin-top: 2.5rem;
+    margin-bottom: 3rem;
+    border-top: 1px solid #e2e4e8;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid #e2e4e8;
+  }
+
+  .faq-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.125rem 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #0f1115;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    transition: color 0.15s;
+  }
+
+  .faq-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-summary:hover {
+    color: #0e9aa7;
+  }
+
+  .faq-summary:focus-visible {
+    outline: 2px solid #0e9aa7;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  .faq-chevron {
+    flex-shrink: 0;
+    color: #7b8794;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  details[open] .faq-chevron {
+    transform: rotate(180deg);
+  }
+
+  details[open] .faq-summary {
+    color: #0e9aa7;
+  }
+
+  .faq-answer {
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    color: #3d4451;
+    padding-bottom: 1.25rem;
+    margin: 0;
+    max-width: 58ch;
+  }
+
+  /* ── Contact block ── */
+  .contact-block {
+    padding-top: 2rem;
+    border-top: 1px solid #e2e4e8;
+  }
+</style>

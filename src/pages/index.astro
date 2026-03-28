@@ -1,6 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro'
 import PhoneMockup from '../components/PhoneMockup.tsx'
+import LogoMark from '../components/LogoMark.astro'
+import SiteFooter from '../components/SiteFooter.astro'
 
 // SVG icons inlined for zero-dependency icons
 const AppleSVG = `<svg width="18" height="22" viewBox="0 0 24 29" fill="currentColor" aria-hidden="true"><path d="M20.92 22.27c-.97 1.45-1.99 2.87-3.57 2.9-1.57.04-2.07-.93-3.85-.93-1.79 0-2.34.9-3.83.96-1.53.06-2.69-1.54-3.67-2.97C3.35 19.41 1.77 13.73 3.9 9.84c1.02-1.78 2.84-2.9 4.82-2.94 1.5-.02 2.92 1.01 3.85 1.01.91 0 2.64-1.25 4.45-1.07.76.04 2.88.31 4.25 2.32-.1.07-2.54 1.5-2.51 4.46.04 3.54 3.1 4.71 3.13 4.73-.03.07-.49 1.68-1.62 3.3zm-4.33-18.9c.85-.97 2.27-1.7 3.44-1.74.15 1.37-.4 2.75-1.22 3.73-.8 1-2.14 1.77-3.45 1.66-.18-1.34.48-2.75 1.23-3.65z"/></svg>`
@@ -23,24 +25,76 @@ const STEPS = [
   {
     num: '03',
     title: 'Unlock',
-    body: 'Hit 80% accuracy across 20 attempts to unlock the next note. Genuine mastery — not just repetition.',
+    body: 'Hit 80% accuracy across 20 attempts to unlock the next module. Genuine mastery — not just repetition.',
   },
 ]
 
 const FEATURES = [
   { label: 'Note recognition', desc: 'Hear a note. Name it.' },
-  { label: 'Melodic dictation', desc: '2-note sequences' },
-  { label: 'Interval training', desc: 'Relative pitch distance' },
+  { label: 'Melodic dictation', desc: 'Sequences from 2 up to 5 notes' },
+  { label: 'Interval training', desc: 'Fixed, multi-root, and random tonic' },
+  { label: 'Chord recognition', desc: 'Hear harmony by scale degree in C major' },
+  { label: 'Chord progressions', desc: 'Build 4-chord loops by ear, one degree at a time' },
 ]
 
-const STATS = [
-  { val: '84%', label: 'Overall accuracy' },
-  { val: '47', label: 'Current streak' },
-  { val: '7/12', label: 'Notes mastered' },
+const HARMONY_CHAPTERS = [
+  {
+    num: '04',
+    title: 'Chords',
+    subtitle: 'Hear harmony in C major',
+    body:
+      'Stay anchored in C major and learn what each chord feels like compared to home. You answer by scale degree, not by memorizing isolated chord names.',
+    accent: 'var(--color-accent)',
+    modules: [
+      { title: 'The Big Three', detail: 'I • IV • V' },
+      { title: 'The Darker Six', detail: 'Adds vi' },
+      { title: 'The Soft Two', detail: 'Adds ii' },
+      { title: 'The Dreamy Three', detail: 'Adds iii' },
+      { title: 'The Unstable Seven', detail: 'Completes all 7 diatonic chords' },
+    ],
+  },
+  {
+    num: '05',
+    title: 'Progressions',
+    subtitle: 'Recognize chord patterns',
+    body:
+      'Once the chords are familiar, order becomes the lesson. The same four chords can feel bright, wistful, lifted, or unresolved depending on where the loop begins and how it moves.',
+    accent: 'var(--color-accent-soft)',
+    modules: [
+      { title: 'The Classics', detail: 'I → IV → V → I' },
+      { title: 'The Darker Start', detail: 'vi → IV → I → V' },
+      { title: 'The Fifties', detail: 'I → vi → IV → V' },
+      { title: 'More Patterns', detail: 'Alt Pop • Country Road • Anthem' },
+      { title: 'The Full Mix', detail: 'Jazz Resolve • Andalusian • Minor Tension' },
+    ],
+  },
+]
+
+const PROGRESSION_PATTERNS = [
+  { name: 'The Pop Loop', degrees: 'I → V → vi → IV', vibe: 'Bright, darker, lifted' },
+  { name: 'Jazz Resolve', degrees: 'ii → V → I → I', vibe: 'Setup, tension, full landing' },
+  { name: 'Minor Descent', degrees: 'vi → V → IV → I', vibe: 'Dark to resolved' },
+]
+
+const NOTE_ACCURACY = [
+  { note: 'C',  pct: 84, mastered: true  },
+  { note: 'E',  pct: 78, mastered: true  },
+  { note: 'G',  pct: 81, mastered: true  },
+  { note: 'D',  pct: 62, mastered: true  },
+  { note: 'F',  pct: 71, mastered: true  },
+  { note: 'A',  pct: 58, mastered: false },
+  { note: 'B',  pct: 44, mastered: false },
+  { note: 'C#', pct: 37, mastered: false },
+  { note: 'D#', pct: 18, mastered: false },
+  { note: 'F#', pct: 29, mastered: false },
+  { note: 'G#', pct: 44, mastered: false },
+  { note: 'A#', pct: 36, mastered: false },
 ]
 ---
 
-<Layout>
+<Layout
+  description="Build reliable pitch recognition through progressive, focused practice. Start with three notes, master all twelve, then move into chords and chord progressions."
+>
   <!-- ── NAV ──────────────────────────────────────────────── -->
   <nav
     class="fixed top-0 left-0 right-0 z-50"
@@ -48,23 +102,33 @@ const STATS = [
   >
     <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <img src="/icon.png" alt="Absolute Ear" class="w-8 h-8 rounded-xl" />
-        <span style="color:#f8fafc; font-weight:600; letter-spacing:-0.02em;">Absolute Ear</span>
+        <LogoMark />
+        <span style="color: var(--color-dark-text); font-weight: 600; letter-spacing: -0.02em;">Absolute Ear</span>
       </div>
-      <div class="flex items-center gap-2.5">
+      <a
+        href="https://apps.apple.com/app/id6758640410"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex items-center gap-2.5"
+        style="text-decoration: none;"
+        aria-label="Download Absolute Ear on the App Store"
+      >
         <div
+          aria-hidden="true"
           class="w-2 h-2 rounded-full"
-          style="background:#38d9d9; animation: pulse-dot 2s ease-in-out infinite;"
+          style="background: var(--color-dark-accent);"
         ></div>
-        <span style="font-size:13px; color:#8d96a5; font-family: var(--font-mono);">Coming Soon</span>
-      </div>
+        <span style="font-size: 13px; color: var(--color-dark-text-3); font-family: var(--font-mono);">Available on iOS</span>
+      </a>
     </div>
   </nav>
+
+  <main id="main-content">
 
   <!-- ── HERO ──────────────────────────────────────────────── -->
   <section
     class="min-h-[100dvh] flex items-center pt-16"
-    style="background: #0f1115;"
+    style="background: var(--color-dark-bg);"
   >
     <div class="max-w-7xl mx-auto px-6 py-20 w-full">
       <div class="grid grid-cols-1 lg:grid-cols-[1fr_300px] xl:grid-cols-[1fr_340px] gap-12 xl:gap-20 items-center">
@@ -72,64 +136,59 @@ const STATS = [
         <!-- Left: Content -->
         <div>
           <!-- Tag line -->
-          <div class="flex items-center gap-3 mb-10">
-            <div class="h-px w-8" style="background:#38d9d9;"></div>
-            <span style="font-size:11px; font-family:var(--font-mono); color:#38d9d9; text-transform:uppercase; letter-spacing:0.2em;">
-              iOS · Android · Coming Soon
+          <div class="hero-enter flex items-center gap-3 mb-10">
+            <div class="h-px w-8" style="background: var(--color-dark-accent);"></div>
+            <span style="font-size: 11px; font-family: var(--font-mono); color: var(--color-dark-accent); text-transform: uppercase; letter-spacing: 0.2em;">
+              iOS · Now Available · Android Coming Soon
             </span>
           </div>
 
           <!-- Headline -->
           <h1
-            class="font-bold leading-[1.04] tracking-tight mb-7"
-            style="font-size: clamp(2.8rem, 6vw, 5.5rem); color:#f8fafc;"
+            class="hero-enter hero-enter-d1 font-bold tracking-tight mb-7"
+            style="font-size: clamp(3.5rem, 8vw, 7.5rem); line-height: 0.94; letter-spacing: -0.03em; color: var(--color-dark-text);"
           >
             Train your ears<br />
             to hear every<br />
-            <span style="color:#38d9d9;">note.</span>
+            <span style="color: var(--color-dark-accent);">note.</span>
           </h1>
 
           <!-- Body -->
           <p
-            class="leading-relaxed mb-10"
-            style="font-size:1.125rem; color:#c3c9d4; max-width:46ch;"
+            class="hero-enter hero-enter-d2 leading-relaxed mb-10"
+            style="font-size: 1.125rem; color: var(--color-dark-text-2); max-width: 46ch;"
           >
             Absolute Ear builds reliable pitch recognition through progressive, focused practice —
-            starting from three notes and expanding to all twelve chromatic tones.
+            starting from three notes, expanding to all twelve chromatic tones,
+            then into chords and chord progressions.
           </p>
 
           <!-- Store buttons -->
-          <div class="flex flex-wrap gap-4">
+          <div class="hero-enter hero-enter-d3 flex flex-wrap gap-4">
             <!-- App Store -->
-            <div class="relative">
-              <a
-                href="#download"
-                class="flex items-center gap-3 rounded-xl font-semibold transition-all duration-200 hover:opacity-90 active:scale-[0.97]"
-                style="padding: 12px 22px; background:#f8fafc; color:#0f1115;"
-                aria-label="Download on the App Store (coming soon)"
-              >
-                <Fragment set:html={AppleSVG} />
-                <div>
-                  <div style="font-size:10px; font-weight:500; opacity:0.6; line-height:1; margin-bottom:2px;">
-                    Download on the
-                  </div>
-                  <div style="font-size:15px; font-weight:700; line-height:1;">App Store</div>
+            <a
+              href="https://apps.apple.com/app/id6758640410"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="store-btn flex items-center gap-3 rounded-xl font-semibold hover:opacity-90 active:scale-[0.97]"
+              style="padding: 12px 22px; background: var(--color-dark-text); color: var(--color-dark-bg);"
+              aria-label="Download Absolute Ear on the App Store"
+            >
+              <Fragment set:html={AppleSVG} />
+              <div>
+                <div style="font-size:10px; font-weight:500; opacity:0.6; line-height:1; margin-bottom:2px;">
+                  Download on the
                 </div>
-              </a>
-              <span
-                class="absolute -top-2 -right-2 font-mono font-bold rounded-full"
-                style="font-size:9px; background:#38d9d9; color:#0f1115; padding:2px 7px;"
-              >
-                Soon
-              </span>
-            </div>
+                <div style="font-size:15px; font-weight:700; line-height:1;">App Store</div>
+              </div>
+            </a>
 
             <!-- Google Play -->
             <div class="relative">
               <a
                 href="#download"
-                class="flex items-center gap-3 rounded-xl font-semibold transition-all duration-200 hover:border-dark-text-3 active:scale-[0.97]"
-                style="padding: 12px 22px; border: 1px solid #2f3541; color:#f8fafc; background:transparent;"
+                class="store-btn flex items-center gap-3 rounded-xl font-semibold hover:opacity-90 active:scale-[0.97]"
+                style="padding: 12px 22px; border: 1px solid var(--color-dark-border); color: var(--color-dark-text); background: transparent;"
                 aria-label="Get it on Google Play (coming soon)"
               >
                 <Fragment set:html={PlaySVG} />
@@ -142,7 +201,7 @@ const STATS = [
               </a>
               <span
                 class="absolute -top-2 -right-2 font-mono font-bold rounded-full"
-                style="font-size:9px; background:#38d9d9; color:#0f1115; padding:2px 7px;"
+                style="font-size: 9px; background: var(--color-dark-accent); color: var(--color-dark-bg); padding: 2px 7px;"
               >
                 Soon
               </span>
@@ -151,32 +210,26 @@ const STATS = [
         </div>
 
         <!-- Right: Phone mockup (React island) -->
-        <div class="hidden lg:flex justify-center items-center">
-          <PhoneMockup client:load />
+        <div class="hero-enter hero-enter-d4 flex justify-center items-center mt-14 lg:mt-0">
+          <PhoneMockup client:visible />
         </div>
       </div>
     </div>
   </section>
 
   <!-- ── FEATURES ──────────────────────────────────────────── -->
-  <section class="py-28 px-6" style="background:#f7f7f5;">
+  <section class="py-28 px-6" style="background: var(--color-bg);">
     <div class="max-w-7xl mx-auto">
 
       <!-- Section header -->
       <div class="reveal mb-16">
-        <div class="flex items-center gap-3 mb-5">
-          <div class="w-1 h-5 rounded-full" style="background:#0e9aa7;"></div>
-          <span style="font-size:11px; font-family:var(--font-mono); color:#0e9aa7; text-transform:uppercase; letter-spacing:0.2em;">
-            Why it works
-          </span>
-        </div>
         <h2
           class="font-bold tracking-tight leading-tight mb-5"
-          style="font-size:clamp(2rem, 4vw, 3.25rem); color:#101216;"
+          style="font-size: clamp(2rem, 4vw, 3.25rem); color: var(--color-text);"
         >
           Designed around how<br />ears actually learn.
         </h2>
-        <p style="font-size:1.1rem; color:#4b5563; max-width:48ch; line-height:1.7;">
+        <p style="font-size: 1.1rem; color: var(--color-text-2); max-width: 48ch; line-height: 1.7;">
           Most ear training apps teach relative pitch — intervals between notes. Absolute Ear trains
           something harder and more valuable: naming notes from sound alone, with no reference pitch.
         </p>
@@ -187,19 +240,19 @@ const STATS = [
 
         <!-- Wide: Progressive learning -->
         <div
-          class="md:col-span-2 reveal reveal-d1 rounded-2xl p-8 border"
-          style="background:#ffffff; border-color:#d6dadd;"
+          class="bento-card md:col-span-2 reveal reveal-d1 rounded-2xl p-8 border"
+          style="background: var(--color-surface); border-color: var(--color-border);"
         >
           <div
             class="font-mono uppercase tracking-[0.2em] mb-3"
-            style="font-size:10px; color:#0e9aa7;"
+            style="font-size: 10px; color: var(--color-accent);"
           >
             Progressive learning
           </div>
-          <h3 class="font-bold tracking-tight mb-3" style="font-size:1.2rem; color:#101216;">
+          <h3 class="font-bold tracking-tight mb-3" style="font-size: 1.2rem; color: var(--color-text);">
             Start small. Build mastery.
           </h3>
-          <p class="leading-relaxed mb-8" style="font-size:0.875rem; color:#4b5563; max-width:44ch;">
+          <p class="leading-relaxed mb-8" style="font-size: 0.875rem; color: var(--color-text-2); max-width: 44ch;">
             Begin with just C, E, and G — three tonally distinct anchors. Each new note unlocks only
             after you hit 80% accuracy across your last 20 attempts. No shortcuts.
           </p>
@@ -210,46 +263,46 @@ const STATS = [
             {['C', 'E', 'G'].map((n) => (
               <span
                 class="font-mono font-semibold rounded-lg"
-                style={`font-size:11px; padding:5px 10px; background:#e3f5f5; color:#0e9aa7;`}
+                style="font-size: 11px; padding: 5px 10px; background: var(--color-accent-light); color: var(--color-accent);"
               >
                 {n}
               </span>
             ))}
 
-            <div class="h-px w-5" style="background:#0e9aa7;"></div>
+            <div class="h-px w-5" style="background: var(--color-accent);"></div>
 
             <!-- D, F (unlocked) -->
             {['D', 'F'].map((n, i) => (
               <Fragment>
                 <span
                   class="font-mono font-semibold rounded-lg"
-                  style="font-size:11px; padding:5px 10px; background:#e3f5f5; color:#0e9aa7;"
+                  style="font-size: 11px; padding: 5px 10px; background: var(--color-accent-light); color: var(--color-accent);"
                 >
                   {n}
                 </span>
-                {i === 0 && <div class="h-px w-5" style="background:#0e9aa7;"></div>}
+                {i === 0 && <div class="h-px w-5" style="background: var(--color-accent);"></div>}
               </Fragment>
             ))}
 
-            <div class="h-px w-5" style="background:#0e9aa7;"></div>
+            <div class="h-px w-5" style="background: var(--color-accent);"></div>
 
             <!-- A (active) -->
             <span
               class="font-mono font-bold rounded-lg"
-              style="font-size:11px; padding:5px 10px; background:#0e9aa7; color:#ffffff;"
+              style="font-size: 11px; padding: 5px 10px; background: var(--color-accent); color: var(--color-surface);"
             >
               A
             </span>
 
-            <div class="h-px w-5" style="background:#d6dadd;"></div>
+            <div class="h-px w-5" style="background: var(--color-border);"></div>
 
             <!-- Locked notes -->
             {['B', 'C#', 'D#', 'F#', 'G#', 'A#'].map((n, i) => (
               <Fragment>
-                {i > 0 && <div class="h-px w-2" style="background:#d6dadd;"></div>}
+                {i > 0 && <div class="h-px w-2" style="background: var(--color-border);"></div>}
                 <span
                   class="font-mono font-semibold rounded-lg"
-                  style="font-size:11px; padding:5px 10px; background:#eef0f2; color:#7b8794;"
+                  style="font-size: 11px; padding: 5px 10px; background: var(--color-surface-muted); color: var(--color-text-3);"
                 >
                   {n}
                 </span>
@@ -260,52 +313,70 @@ const STATS = [
 
         <!-- Narrow: Smart repetition -->
         <div
-          class="reveal reveal-d2 rounded-2xl p-8 border"
-          style="background:#ffffff; border-color:#d6dadd;"
+          class="bento-card reveal reveal-d2 rounded-2xl p-8 border"
+          style="background: var(--color-surface); border-color: var(--color-border);"
         >
           <div
             class="font-mono uppercase tracking-[0.2em] mb-3"
-            style="font-size:10px; color:#0e9aa7;"
+            style="font-size: 10px; color: var(--color-accent);"
           >
             Smart practice
           </div>
-          <h3 class="font-bold tracking-tight mb-3" style="font-size:1.2rem; color:#101216;">
+          <h3 class="font-bold tracking-tight mb-3" style="font-size: 1.2rem; color: var(--color-text);">
             Weak notes come back more often.
           </h3>
-          <p class="leading-relaxed" style="font-size:0.875rem; color:#4b5563; line-height:1.7;">
+          <p class="leading-relaxed" style="font-size: 0.875rem; color: var(--color-text-2); line-height: 1.7;">
             The algorithm tracks your accuracy per note and weights your practice toward
             the ones you struggle with most — so no note gets left behind.
           </p>
+
+          <!-- Weighted repetition visual: hard notes appear more often -->
+          <div class="flex flex-wrap gap-1.5 mt-5" aria-hidden="true">
+            {(['F#', 'D#', 'A#', 'F#', 'G#', 'D#', 'C', 'F#', 'A#', 'D#', 'G', 'G#'] as const).map((n) => {
+              const isStruggle = ['F#', 'D#', 'A#', 'G#'].includes(n)
+              return (
+                <span
+                  class="font-mono font-semibold rounded-lg"
+                  style={`font-size: 10px; padding: ${isStruggle ? '4px 9px' : '3px 7px'}; background: ${isStruggle ? 'var(--color-accent-light)' : 'var(--color-surface-muted)'}; color: ${isStruggle ? 'var(--color-accent)' : 'var(--color-text-3)'};`}
+                >
+                  {n}
+                </span>
+              )
+            })}
+          </div>
         </div>
 
         <!-- Narrow: Training modes -->
         <div
-          class="reveal reveal-d3 rounded-2xl p-8 border"
-          style="background:#ffffff; border-color:#d6dadd;"
+          class="bento-card reveal reveal-d3 rounded-2xl p-8 border"
+          style="background: var(--color-surface); border-color: var(--color-border);"
         >
           <div
             class="font-mono uppercase tracking-[0.2em] mb-3"
-            style="font-size:10px; color:#0e9aa7;"
+            style="font-size: 10px; color: var(--color-accent);"
           >
             Training modes
           </div>
-          <h3 class="font-bold tracking-tight mb-3" style="font-size:1.2rem; color:#101216;">
-            Three ways to practice.
+          <h3 class="font-bold tracking-tight mb-3" style="font-size: 1.2rem; color: var(--color-text);">
+            Five ways to practice.
           </h3>
-          <p class="leading-relaxed mb-6" style="font-size:0.875rem; color:#4b5563; line-height:1.7;">
-            Single note recognition builds the foundation. Melodic dictation and interval training
-            push your ears further.
+          <p class="leading-relaxed mb-6" style="font-size: 0.875rem; color: var(--color-text-2); line-height: 1.7;">
+            Single note recognition builds the foundation. Melodic dictation scales from
+            2-note sequences up to 5, and interval training progresses from a fixed tonic
+            through multiple root notes to fully random roots. Then the app moves into
+            harmony: hearing chords by function and recognizing the shape of common
+            4-chord loops by degree.
           </p>
-          <div class="flex flex-col gap-3">
+          <div class="flex flex-col gap-2.5">
             {FEATURES.map((f) => (
-              <div class="flex items-start gap-3">
+              <div class="flex items-stretch gap-3">
                 <div
-                  class="rounded-full flex-shrink-0 mt-1.5"
-                  style="width:6px; height:6px; background:#0e9aa7;"
+                  class="flex-shrink-0 rounded-full"
+                  style="width: 2px; background: var(--color-accent);"
                 ></div>
-                <div>
-                  <div class="font-semibold" style="font-size:13px; color:#101216;">{f.label}</div>
-                  <div style="font-size:12px; color:#7b8794;">{f.desc}</div>
+                <div class="py-0.5">
+                  <div class="font-semibold" style="font-size: 13px; color: var(--color-text); margin-bottom: 1px;">{f.label}</div>
+                  <div style="font-size: 12px; color: var(--color-text-3);">{f.desc}</div>
                 </div>
               </div>
             ))}
@@ -314,39 +385,47 @@ const STATS = [
 
         <!-- Wide: Deep analytics -->
         <div
-          class="md:col-span-2 reveal reveal-d4 rounded-2xl p-8 border"
-          style="background:#ffffff; border-color:#d6dadd;"
+          class="bento-card md:col-span-2 reveal reveal-d4 rounded-2xl p-8 border"
+          style="background: var(--color-surface); border-color: var(--color-border);"
         >
           <div
             class="font-mono uppercase tracking-[0.2em] mb-3"
-            style="font-size:10px; color:#0e9aa7;"
+            style="font-size: 10px; color: var(--color-accent);"
           >
             Analytics
           </div>
-          <h3 class="font-bold tracking-tight mb-3" style="font-size:1.2rem; color:#101216;">
+          <h3 class="font-bold tracking-tight mb-3" style="font-size: 1.2rem; color: var(--color-text);">
             See exactly where you stand.
           </h3>
-          <p class="leading-relaxed mb-8" style="font-size:0.875rem; color:#4b5563; max-width:44ch; line-height:1.7;">
-            Per-note accuracy curves, confusion matrices, streaks, and mastery tracking.
-            Know which notes you mix up — and watch them improve over time.
+          <p class="leading-relaxed mb-8" style="font-size: 0.875rem; color: var(--color-text-2); max-width: 44ch; line-height: 1.7;">
+            Per-note accuracy curves, chord and progression tracking, streaks, and mastery signals.
+            Know which sounds you confuse most — and watch them tighten over time.
           </p>
 
-          <!-- Mini stats (using organic-looking numbers) -->
-          <div class="grid grid-cols-3 gap-6">
-            {STATS.map((s) => (
-              <div>
-                <div
-                  class="font-bold font-mono mb-1"
-                  style="font-size:2rem; color:#101216; letter-spacing:-0.02em;"
+          <!-- Per-note accuracy bars -->
+          <div class="grid grid-cols-2 gap-x-4 sm:gap-x-8 gap-y-2.5">
+            {NOTE_ACCURACY.map((n) => (
+              <div class="flex items-center gap-2.5">
+                <span
+                  class="font-mono flex-shrink-0 text-right"
+                  style="font-size: 11px; color: var(--color-text-3); width: 24px;"
                 >
-                  {s.val}
-                </div>
+                  {n.note}
+                </span>
                 <div
-                  class="uppercase tracking-wider"
-                  style="font-size:10px; color:#7b8794; font-family:var(--font-mono);"
+                  class="flex-1 relative"
+                  style="height: 3px; background: var(--color-border); border-radius: 2px;"
                 >
-                  {s.label}
+                  <div
+                    style={`position: absolute; left: 0; top: 0; bottom: 0; width: ${n.pct}%; border-radius: 2px; background: ${n.mastered ? 'var(--color-accent)' : 'var(--color-text-3)'}; opacity: ${n.mastered ? '1' : '0.45'};`}
+                  />
                 </div>
+                <span
+                  class="font-mono flex-shrink-0 text-right"
+                  style="font-size: 10px; color: var(--color-text-3); width: 28px;"
+                >
+                  {n.pct}%
+                </span>
               </div>
             ))}
           </div>
@@ -356,23 +435,173 @@ const STATS = [
     </div>
   </section>
 
+  <!-- ── HARMONY CHAPTERS ─────────────────────────────────── -->
+  <section
+    class="py-28 px-6"
+    style="background: linear-gradient(180deg, var(--color-dark-bg) 0%, #121a24 100%); border-top: 1px solid rgba(47,53,65,0.7);"
+  >
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-[0.82fr_1.18fr] gap-6 lg:gap-8 items-start mb-8">
+        <div class="reveal">
+          <div
+            class="font-mono uppercase tracking-[0.22em] mb-4"
+            style="font-size: 10px; color: var(--color-dark-accent);"
+          >
+            New chapters
+          </div>
+          <h2
+            class="font-bold tracking-tight mb-5"
+            style="font-size: clamp(2.1rem, 4.5vw, 3.75rem); line-height: 0.95; color: var(--color-dark-text);"
+          >
+            From pitch<br />into harmony.
+          </h2>
+          <p style="font-size: 1.05rem; color: var(--color-dark-text-2); line-height: 1.75; max-width: 42ch;">
+            Absolute Ear now continues past single notes and intervals into two full harmony chapters:
+            <span style="color: var(--color-dark-text);"> Chords</span> and
+            <span style="color: var(--color-dark-text);"> Chord Progressions</span>.
+            The path stays anchored in C major, so your ear learns function first and labels second.
+          </p>
+        </div>
+
+        <div
+          class="reveal reveal-d1 rounded-[2rem] border p-7 sm:p-8"
+          style="background: linear-gradient(145deg, rgba(22,26,33,0.92) 0%, rgba(14,19,27,0.96) 100%); border-color: rgba(56,217,217,0.16); box-shadow: 0 28px 80px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.04);"
+        >
+          <div class="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-6 items-start">
+            <div>
+              <div
+                class="font-mono uppercase tracking-[0.22em] mb-3"
+                style="font-size: 10px; color: var(--color-dark-accent);"
+              >
+                Anchor point
+              </div>
+              <p
+                class="font-bold tracking-tight mb-3"
+                style="font-size: 1.35rem; line-height: 1.08; color: var(--color-dark-text); max-width: 16ch;"
+              >
+                Hear where every chord lives relative to home.
+              </p>
+              <p style="font-size: 0.95rem; color: var(--color-dark-text-2); line-height: 1.75; max-width: 34ch;">
+                Every harmony lesson starts from the same reference: I establishes home, then the ear learns
+                lift, pull, darker color, and full resolution by scale degree.
+              </p>
+            </div>
+
+            <div
+              class="rounded-[1.5rem] border p-4 sm:p-5"
+              style="min-width: 220px; background: rgba(9,13,18,0.6); border-color: rgba(56,217,217,0.12);"
+            >
+              <div class="flex items-center gap-2 mb-3">
+                <div class="h-2 w-2 rounded-full" style="background: var(--color-dark-accent);"></div>
+                <span class="font-mono" style="font-size: 10px; letter-spacing: 0.18em; color: var(--color-dark-text-3); text-transform: uppercase;">
+                  Example loops
+                </span>
+              </div>
+              <div class="flex flex-col gap-2.5">
+                {PROGRESSION_PATTERNS.map((pattern) => (
+                  <div
+                    class="rounded-2xl border p-3"
+                    style="background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.06);"
+                  >
+                    <div class="font-semibold" style="font-size: 13px; color: var(--color-dark-text); margin-bottom: 4px;">
+                      {pattern.name}
+                    </div>
+                    <div class="font-mono" style="font-size: 11px; color: var(--color-dark-accent); margin-bottom: 3px;">
+                      {pattern.degrees}
+                    </div>
+                    <div style="font-size: 11px; color: var(--color-dark-text-3);">
+                      {pattern.vibe}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        {HARMONY_CHAPTERS.map((chapter, i) => (
+          <div
+            class={`reveal reveal-d${Math.min(i + 2, 4)} rounded-[2rem] border p-6 sm:p-8`}
+            style={`background: linear-gradient(160deg, rgba(20,25,33,0.94) 0%, rgba(11,15,21,0.98) 100%); border-color: rgba(255,255,255,0.08); box-shadow: 0 24px 72px rgba(0,0,0,0.24);`}
+          >
+            <div class="flex items-start justify-between gap-4 mb-6">
+              <div>
+                <div
+                  class="font-mono uppercase tracking-[0.2em] mb-3"
+                  style="font-size: 10px; color: var(--color-dark-text-3);"
+                >
+                  Chapter {chapter.num}
+                </div>
+                <h3 class="font-bold tracking-tight mb-2" style="font-size: 1.75rem; color: var(--color-dark-text);">
+                  {chapter.title}
+                </h3>
+                <p style={`font-size: 0.95rem; color: ${chapter.accent};`}>
+                  {chapter.subtitle}
+                </p>
+              </div>
+              <div
+                aria-hidden="true"
+                class="rounded-full"
+                style={`width: 14px; height: 14px; background: ${chapter.accent}; box-shadow: 0 0 0 8px rgba(56,217,217,0.08);`}
+              ></div>
+            </div>
+
+            <p style="font-size: 0.975rem; color: var(--color-dark-text-2); line-height: 1.8; max-width: 42ch; margin-bottom: 1.5rem;">
+              {chapter.body}
+            </p>
+
+            <div
+              class="rounded-[1.5rem] border p-4 sm:p-5"
+              style="background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.07);"
+            >
+              <div
+                class="font-mono uppercase tracking-[0.2em] mb-3"
+                style="font-size: 10px; color: var(--color-dark-text-3);"
+              >
+                Modules
+              </div>
+              <div class="flex flex-col gap-2.5">
+                {chapter.modules.map((module, moduleIndex) => (
+                  <div
+                    class="flex items-center justify-between gap-4 rounded-2xl border px-4 py-3"
+                    style={`background: ${moduleIndex === 0 ? 'rgba(56,217,217,0.08)' : 'rgba(255,255,255,0.02)'}; border-color: ${moduleIndex === 0 ? 'rgba(56,217,217,0.18)' : 'rgba(255,255,255,0.06)'};`}
+                  >
+                    <div class="flex items-center gap-3 min-w-0">
+                      <span
+                        class="font-mono font-bold rounded-lg"
+                        style={`font-size: 11px; padding: 5px 8px; background: ${moduleIndex === 0 ? 'rgba(56,217,217,0.14)' : 'rgba(255,255,255,0.05)'}; color: ${moduleIndex === 0 ? 'var(--color-dark-accent)' : 'var(--color-dark-text-3)'};`}
+                      >
+                        {String(moduleIndex + 1).padStart(2, '0')}
+                      </span>
+                      <div class="min-w-0">
+                        <div class="font-semibold truncate" style="font-size: 14px; color: var(--color-dark-text);">
+                          {module.title}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="font-mono text-right" style={`font-size: 11px; color: ${moduleIndex === 0 ? chapter.accent : 'var(--color-dark-text-3)'};`}>
+                      {module.detail}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- ── HOW IT WORKS ──────────────────────────────────────── -->
-  <section class="py-28 px-6" style="background:#eef0f2;">
+  <section class="py-28 px-6" style="background: var(--color-surface-muted);">
     <div class="max-w-7xl mx-auto">
 
       <div class="reveal mb-16">
-        <div class="flex items-center gap-3 mb-5">
-          <div class="w-1 h-5 rounded-full" style="background:#0e9aa7;"></div>
-          <span
-            class="font-mono uppercase"
-            style="font-size:11px; color:#0e9aa7; letter-spacing:0.2em;"
-          >
-            The process
-          </span>
-        </div>
         <h2
           class="font-bold tracking-tight"
-          style="font-size:clamp(2rem, 4vw, 3.25rem); color:#101216;"
+          style="font-size: clamp(2rem, 4vw, 3.25rem); color: var(--color-text);"
         >
           How it works.
         </h2>
@@ -382,13 +611,14 @@ const STATS = [
         {STEPS.map((step, i) => (
           <div class={`reveal reveal-d${i + 1}`}>
             <div
-              class="font-mono font-bold mb-5"
-              style="font-size:3.5rem; color:#0e9aa7; opacity:0.18; line-height:1; letter-spacing:-0.04em;"
+              aria-hidden="true"
+              class="font-mono font-bold select-none pointer-events-none"
+              style="font-size: clamp(5rem, 11vw, 9rem); color: var(--color-accent); opacity: 0.08; line-height: 1; letter-spacing: -0.04em; margin-bottom: -0.25em;"
             >
               {step.num}
             </div>
-            <h3 class="font-bold mb-3" style="font-size:1.25rem; color:#101216;">{step.title}</h3>
-            <p style="color:#4b5563; line-height:1.7;">{step.body}</p>
+            <h3 class="font-bold mb-3" style="font-size: 1.25rem; color: var(--color-text);">{step.title}</h3>
+            <p style="color: var(--color-text-2); line-height: 1.7;">{step.body}</p>
           </div>
         ))}
       </div>
@@ -396,48 +626,40 @@ const STATS = [
   </section>
 
   <!-- ── LEARNING PATH ─────────────────────────────────────── -->
-  <section class="py-28 px-6" style="background:#0f1115;">
+  <section class="py-28 px-6" style="background: var(--color-dark-bg);">
     <div class="max-w-7xl mx-auto">
 
       <div class="reveal mb-14">
-        <div class="flex items-center gap-3 mb-5">
-          <div class="h-px w-8" style="background:#38d9d9;"></div>
-          <span
-            class="font-mono uppercase"
-            style="font-size:11px; color:#38d9d9; letter-spacing:0.2em;"
-          >
-            The curriculum
-          </span>
-        </div>
         <h2
           class="font-bold tracking-tight mb-5"
-          style="font-size:clamp(2rem, 4vw, 3.25rem); color:#f8fafc;"
+          style="font-size: clamp(2rem, 4vw, 3.25rem); color: var(--color-dark-text);"
         >
-          From three notes<br />to twelve.
+          From three notes<br />to harmony.
         </h2>
-        <p style="font-size:1.1rem; color:#c3c9d4; max-width:46ch; line-height:1.7;">
+        <p style="font-size: 1.1rem; color: var(--color-dark-text-2); max-width: 46ch; line-height: 1.7;">
           The unlock order is deliberate — start with the most tonally distinct notes,
-          then introduce each new pitch as your ear becomes more refined.
+          then introduce each new pitch as your ear becomes more refined. Once the full
+          chromatic set is in place, the path opens into chords and progressions.
         </p>
       </div>
 
       <!-- Chromatic note grid -->
-      <div class="reveal overflow-x-auto pb-2">
-        <div class="flex items-start gap-4 min-w-max">
+      <div class="reveal learning-path-scroll -mx-6 overflow-x-auto pt-2 pb-4 sm:mx-0">
+        <div class="flex items-start gap-4 min-w-max px-6 sm:px-0">
 
           <!-- Starting group -->
           <div class="flex flex-col items-center gap-2.5">
             <div class="flex gap-2">
               {['C', 'E', 'G'].map((n) => (
                 <div
-                  class="font-mono font-bold flex items-center justify-center rounded-xl"
-                  style="width:44px; height:44px; font-size:13px; background: rgba(56,217,217,0.12); border: 1.5px solid #38d9d9; color:#38d9d9;"
+                  class="note-tile font-mono font-bold flex items-center justify-center rounded-xl"
+                  style="width: 44px; height: 44px; font-size: 13px; background: rgba(56,217,217,0.12); border: 1.5px solid var(--color-dark-accent); color: var(--color-dark-accent);"
                 >
                   {n}
                 </div>
               ))}
             </div>
-            <span class="font-mono" style="font-size:10px; color:#8d96a5;">Start</span>
+            <span class="font-mono" style="font-size: 10px; color: var(--color-dark-text-3);">Start</span>
           </div>
 
           <!-- White key unlocks -->
@@ -450,12 +672,12 @@ const STATS = [
               </div>
               <div class="flex flex-col items-center gap-2.5">
                 <div
-                  class="font-mono font-bold flex items-center justify-center rounded-xl"
-                  style="width:44px; height:44px; font-size:13px; background:#161a21; border:1px solid #2f3541; color:#c3c9d4;"
+                  class="note-tile font-mono font-bold flex items-center justify-center rounded-xl"
+                  style="width: 44px; height: 44px; font-size: 13px; background: var(--color-dark-surface); border: 1px solid var(--color-dark-border); color: var(--color-dark-text-2);"
                 >
                   {n}
                 </div>
-                <span class="font-mono" style="font-size:10px; color:#8d96a5;">#{i + 1}</span>
+                <span class="font-mono" style="font-size: 10px; color: var(--color-dark-text-3);">#{i + 1}</span>
               </div>
             </Fragment>
           ))}
@@ -472,114 +694,166 @@ const STATS = [
             <div class="flex gap-2">
               {['C#', 'D#', 'F#', 'G#', 'A#'].map((n) => (
                 <div
-                  class="font-mono font-bold flex items-center justify-center rounded-xl"
-                  style="width:44px; height:44px; font-size:11px; background:#1d222b; border:1px solid #2f3541; color:#8d96a5;"
+                  class="note-tile font-mono font-bold flex items-center justify-center rounded-xl"
+                  style="width: 44px; height: 44px; font-size: 11px; background: var(--color-dark-surface-2); border: 1px solid var(--color-dark-border); color: var(--color-dark-text-3);"
                 >
                   {n}
                 </div>
               ))}
             </div>
-            <span class="font-mono" style="font-size:10px; color:#8d96a5;">Chromatic</span>
+            <span class="font-mono" style="font-size: 10px; color: var(--color-dark-text-3);">Chromatic</span>
           </div>
 
         </div>
       </div>
 
-      <!-- Unlock condition callout -->
-      <div
-        class="reveal mt-12 inline-flex items-center gap-3 rounded-xl px-5 py-3"
-        style="background:#1d222b; border:1px solid #2f3541;"
-      >
-        <div class="rounded-full" style="width:7px; height:7px; background:#38d9d9; flex-shrink:0;"></div>
-        <span style="font-size:13px; color:#c3c9d4;">
-          Each note unlocks at <span style="color:#38d9d9; font-weight:700;">80% accuracy</span> across your last 20 attempts
-        </span>
-      </div>
     </div>
   </section>
 
-  <!-- ── DOWNLOAD CTA ───────────────────────────────────────── -->
-  <section id="download" class="py-28 px-6" style="background:#0f1115; border-top:1px solid #2f3541;">
+  <!-- ── DOWNLOAD CTA ─────────────────────────────────────── -->
+  <section id="download" class="py-28 px-6" style="background: var(--color-dark-bg); border-top: 1px solid var(--color-dark-border);">
     <div class="max-w-7xl mx-auto">
-      <div class="reveal" style="max-width: 560px;">
-        <div class="flex items-center gap-3 mb-6">
-          <div class="h-px w-8" style="background:#38d9d9;"></div>
-          <span class="font-mono uppercase" style="font-size:11px; color:#38d9d9; letter-spacing:0.2em;">
-            Download
-          </span>
-        </div>
+      <div class="reveal" style="max-width: 520px;">
         <h2
-          class="font-bold tracking-tight mb-5"
-          style="font-size:clamp(2rem, 4vw, 3.25rem); color:#f8fafc;"
+          class="font-bold tracking-tight mb-4"
+          style="font-size: clamp(2rem, 4vw, 3.25rem); color: var(--color-dark-text);"
         >
-          Available soon on<br />iOS and Android.
+          Start training<br />your ears today.
         </h2>
-        <p class="leading-relaxed mb-10" style="font-size:1.1rem; color:#c3c9d4; line-height:1.7;">
-          We're putting the finishing touches on Absolute Ear. These links will be live when
-          the app launches in the App Store and Google Play.
+        <p class="mb-8" style="font-size: 1.1rem; color: var(--color-dark-text-2); line-height: 1.7;">
+          Absolute Ear is free to download on iOS, with note recognition, melodic dictation,
+          interval training, chords, and chord progressions in one learning path. Android is on the way.
         </p>
-
-        <div class="flex flex-wrap gap-4">
-          <!-- App Store -->
-          <div class="relative">
-            <a
-              href="#download"
-              class="flex items-center gap-3 rounded-xl font-semibold transition-all duration-200 hover:opacity-90 active:scale-[0.97]"
-              style="padding:12px 22px; background:#f8fafc; color:#0f1115;"
-              aria-label="Download on the App Store (coming soon)"
-            >
-              <Fragment set:html={AppleSVG} />
-              <div>
-                <div style="font-size:10px; font-weight:500; opacity:0.6; line-height:1; margin-bottom:2px;">Download on the</div>
-                <div style="font-size:15px; font-weight:700; line-height:1;">App Store</div>
-              </div>
-            </a>
-            <span
-              class="absolute -top-2 -right-2 font-mono font-bold rounded-full"
-              style="font-size:9px; background:#38d9d9; color:#0f1115; padding:2px 7px;"
-            >
-              Soon
-            </span>
+        <a
+          href="https://apps.apple.com/app/id6758640410"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="store-btn inline-flex items-center gap-3 rounded-xl font-semibold hover:opacity-90 active:scale-[0.97]"
+          style="padding: 14px 26px; background: var(--color-dark-text); color: var(--color-dark-bg);"
+          aria-label="Download Absolute Ear on the App Store"
+        >
+          <Fragment set:html={AppleSVG} />
+          <div>
+            <div style="font-size:10px; font-weight:500; opacity:0.6; line-height:1; margin-bottom:2px;">
+              Download on the
+            </div>
+            <div style="font-size:15px; font-weight:700; line-height:1;">App Store</div>
           </div>
-
-          <!-- Google Play -->
-          <div class="relative">
-            <a
-              href="#download"
-              class="flex items-center gap-3 rounded-xl font-semibold transition-all duration-200 active:scale-[0.97]"
-              style="padding:12px 22px; border:1px solid #2f3541; color:#f8fafc; background:transparent;"
-              aria-label="Get it on Google Play (coming soon)"
-            >
-              <Fragment set:html={PlaySVG} />
-              <div>
-                <div style="font-size:10px; font-weight:500; opacity:0.6; line-height:1; margin-bottom:2px;">Get it on</div>
-                <div style="font-size:15px; font-weight:700; line-height:1;">Google Play</div>
-              </div>
-            </a>
-            <span
-              class="absolute -top-2 -right-2 font-mono font-bold rounded-full"
-              style="font-size:9px; background:#38d9d9; color:#0f1115; padding:2px 7px;"
-            >
-              Soon
-            </span>
-          </div>
-        </div>
+        </a>
       </div>
     </div>
   </section>
+
+  <!-- ── ABOUT ────────────────────────────────────────────────── -->
+  <section class="py-24 px-6" style="background: var(--color-dark-bg); border-top: 1px solid var(--color-dark-border);">
+    <div class="max-w-7xl mx-auto">
+      <div class="about-layout reveal">
+
+        <!-- Location pin -->
+        <div class="about-location font-mono" style="font-size: 11px; color: var(--color-dark-text-3); letter-spacing: 0.18em; text-transform: uppercase; display: flex; align-items: center; gap: 8px; margin-bottom: 28px;">
+          <svg width="10" height="13" viewBox="0 0 10 13" fill="none" aria-hidden="true">
+            <path d="M5 0C2.24 0 0 2.24 0 5c0 3.75 5 8 5 8s5-4.25 5-8c0-2.76-2.24-5-5-5zm0 6.75A1.75 1.75 0 1 1 5 3.25a1.75 1.75 0 0 1 0 3.5z" fill="var(--color-dark-text-3)"/>
+          </svg>
+          Bulverde, TX
+        </div>
+
+        <!-- Main content: name + paragraph side by side on large screens -->
+        <div class="about-grid">
+          <div class="about-name-col">
+            <p class="about-byline font-bold" style="font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.15; letter-spacing: -0.025em; color: var(--color-dark-text);">
+              Built by<br />
+              <span style="color: var(--color-dark-accent);">Dave&nbsp;Ashworth.</span>
+            </p>
+          </div>
+
+          <div class="about-body-col">
+            <p style="font-size: 1.05rem; color: var(--color-dark-text-2); line-height: 1.75; max-width: 52ch;">
+              Absolute Ear is a passion project — solo-designed and built because I wanted an app that
+              actually taught me to hear notes, not just guess them. It's made for musicians, students,
+              and curious ears who want to develop something real: the ability to name any pitch from
+              sound alone, without a reference, without shortcuts.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  </main>
 
   <!-- ── FOOTER ─────────────────────────────────────────────── -->
-  <footer class="py-10 px-6" style="background:#0f1115; border-top:1px solid #2f3541;">
-    <div
-      class="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
-    >
-      <div class="flex items-center gap-3">
-        <img src="/icon.png" alt="Absolute Ear" class="w-6 h-6 rounded-lg" style="opacity:0.6;" />
-        <span style="font-size:14px; color:#8d96a5;">Absolute Ear</span>
-      </div>
-      <span style="font-size:13px; color:#8d96a5; font-family:var(--font-mono);">
-        absoluteear.com
-      </span>
-    </div>
-  </footer>
+  <SiteFooter />
 </Layout>
+
+<style>
+  .store-btn {
+    transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .store-btn:focus-visible {
+    outline: 2px solid var(--color-dark-accent);
+    outline-offset: 3px;
+    border-radius: 12px;
+  }
+
+  /* Learning path: gradient fade on right edge to signal scrollability on mobile */
+  .learning-path-scroll {
+    position: relative;
+  }
+  @media (max-width: 639px) {
+    .learning-path-scroll::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 48px;
+      pointer-events: none;
+      background: linear-gradient(to right, transparent, var(--color-dark-bg));
+    }
+  }
+
+  /* Waitlist: input focus glow */
+  #waitlist-email:focus {
+    border-color: var(--color-dark-accent);
+    box-shadow: 0 0 0 3px rgba(56, 217, 217, 0.15);
+    outline: none;
+  }
+
+  /* Waitlist: button hover/active */
+  #waitlist-btn {
+    transition: opacity 0.15s, transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  #waitlist-btn:not(:disabled):hover {
+    opacity: 0.88;
+  }
+  #waitlist-btn:not(:disabled):active {
+    transform: scale(0.97);
+  }
+
+  /* ── About section ────────────────────────────────────────── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  @media (min-width: 640px) {
+    .about-grid {
+      grid-template-columns: auto 1fr;
+      gap: 0 56px;
+      align-items: start;
+    }
+
+    .about-name-col {
+      padding-top: 3px;
+      padding-right: 56px;
+      border-right: 1px solid var(--color-dark-border);
+    }
+
+    .about-body-col {
+      padding-top: 3px;
+    }
+  }
+</style>

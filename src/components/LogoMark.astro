@@ -1,0 +1,28 @@
+---
+interface Props {
+  size?: 'sm' | 'md'
+}
+
+const { size = 'md' } = Astro.props
+const w = size === 'sm' ? 22 : 27
+const h = size === 'sm' ? 20 : 24
+---
+
+<svg
+  width={w}
+  height={h}
+  viewBox="0 0 35 32"
+  fill="none"
+  aria-hidden="true"
+  style="color: var(--color-dark-accent);"
+>
+  <rect x="0"  y="12" width="3" height="8"  rx="1.5" fill="currentColor"/>
+  <rect x="4"  y="7"  width="3" height="18" rx="1.5" fill="currentColor"/>
+  <rect x="8"  y="4"  width="3" height="24" rx="1.5" fill="currentColor"/>
+  <rect x="12" y="11" width="3" height="10" rx="1.5" fill="currentColor"/>
+  <rect x="16" y="2"  width="3" height="28" rx="1.5" fill="currentColor"/>
+  <rect x="20" y="8"  width="3" height="16" rx="1.5" fill="currentColor"/>
+  <rect x="24" y="13" width="3" height="6"  rx="1.5" fill="currentColor"/>
+  <rect x="28" y="5"  width="3" height="22" rx="1.5" fill="currentColor"/>
+  <rect x="32" y="10" width="3" height="12" rx="1.5" fill="currentColor"/>
+</svg>
