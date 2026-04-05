@@ -9,6 +9,9 @@ const AppleSVG = `<svg width="18" height="22" viewBox="0 0 24 29" fill="currentC
 
 const PlaySVG = `<svg width="18" height="20" viewBox="0 0 24 27" fill="currentColor" aria-hidden="true"><path d="M2.13 26.5c.38.21.84.23 1.26.02L18.98 18.1l-3.47-3.47L2.13 26.5zm-1.75-22.4v22.05c0 .52.3.97.71 1.19V2.91c-.41.22-.71.67-.71 1.19zM16.89 11.56l2.07-1.16.06-.04L5.63.31 3.39.02l13.5 11.54zM20.47 9.5l-1.51 2.06-6.23 5.85 6.23 5.85 1.51-.84c.96-.54.96-1.5 0-2.04L20.47 9.5z"/></svg>`
 
+const APP_STORE_URL = 'https://apps.apple.com/app/id6758640410'
+const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.pianoear.app&hl=en_US'
+
 const CHROMATIC_NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
 
 const STEPS = [
@@ -106,19 +109,17 @@ const NOTE_ACCURACY = [
         <span style="color: var(--color-dark-text); font-weight: 600; letter-spacing: -0.02em;">Absolute Ear</span>
       </div>
       <a
-        href="https://apps.apple.com/app/id6758640410"
-        target="_blank"
-        rel="noopener noreferrer"
+        href="#download"
         class="flex items-center gap-2.5"
         style="text-decoration: none;"
-        aria-label="Download Absolute Ear on the App Store"
+        aria-label="View Absolute Ear download options"
       >
         <div
           aria-hidden="true"
           class="w-2 h-2 rounded-full"
           style="background: var(--color-dark-accent);"
         ></div>
-        <span style="font-size: 13px; color: var(--color-dark-text-3); font-family: var(--font-mono);">Available on iOS</span>
+        <span style="font-size: 13px; color: var(--color-dark-text-3); font-family: var(--font-mono);">Available on iPhone + Android</span>
       </a>
     </div>
   </nav>
@@ -139,7 +140,7 @@ const NOTE_ACCURACY = [
           <div class="hero-enter flex items-center gap-3 mb-10">
             <div class="h-px w-8" style="background: var(--color-dark-accent);"></div>
             <span style="font-size: 11px; font-family: var(--font-mono); color: var(--color-dark-accent); text-transform: uppercase; letter-spacing: 0.2em;">
-              iOS · Now Available · Android Coming Soon
+              iPhone + Android · Now Available
             </span>
           </div>
 
@@ -167,7 +168,7 @@ const NOTE_ACCURACY = [
           <div class="hero-enter hero-enter-d3 flex flex-wrap gap-4">
             <!-- App Store -->
             <a
-              href="https://apps.apple.com/app/id6758640410"
+              href={APP_STORE_URL}
               target="_blank"
               rel="noopener noreferrer"
               class="store-btn flex items-center gap-3 rounded-xl font-semibold hover:opacity-90 active:scale-[0.97]"
@@ -184,28 +185,22 @@ const NOTE_ACCURACY = [
             </a>
 
             <!-- Google Play -->
-            <div class="relative">
-              <a
-                href="#download"
-                class="store-btn flex items-center gap-3 rounded-xl font-semibold hover:opacity-90 active:scale-[0.97]"
-                style="padding: 12px 22px; border: 1px solid var(--color-dark-border); color: var(--color-dark-text); background: transparent;"
-                aria-label="Get it on Google Play (coming soon)"
-              >
-                <Fragment set:html={PlaySVG} />
-                <div>
-                  <div style="font-size:10px; font-weight:500; opacity:0.6; line-height:1; margin-bottom:2px;">
-                    Get it on
-                  </div>
-                  <div style="font-size:15px; font-weight:700; line-height:1;">Google Play</div>
+            <a
+              href={PLAY_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="store-btn flex items-center gap-3 rounded-xl font-semibold hover:opacity-90 active:scale-[0.97]"
+              style="padding: 12px 22px; border: 1px solid var(--color-dark-border); color: var(--color-dark-text); background: transparent;"
+              aria-label="Get Absolute Ear on Google Play"
+            >
+              <Fragment set:html={PlaySVG} />
+              <div>
+                <div style="font-size:10px; font-weight:500; opacity:0.6; line-height:1; margin-bottom:2px;">
+                  Get it on
                 </div>
-              </a>
-              <span
-                class="absolute -top-2 -right-2 font-mono font-bold rounded-full"
-                style="font-size: 9px; background: var(--color-dark-accent); color: var(--color-dark-bg); padding: 2px 7px;"
-              >
-                Soon
-              </span>
-            </div>
+                <div style="font-size:15px; font-weight:700; line-height:1;">Google Play</div>
+              </div>
+            </a>
           </div>
         </div>
 
@@ -721,25 +716,43 @@ const NOTE_ACCURACY = [
           Start training<br />your ears today.
         </h2>
         <p class="mb-8" style="font-size: 1.1rem; color: var(--color-dark-text-2); line-height: 1.7;">
-          Absolute Ear is free to download on iOS, with note recognition, melodic dictation,
-          interval training, chords, and chord progressions in one learning path. Android is on the way.
+          Absolute Ear is free to download on iPhone and Android, with note recognition, melodic
+          dictation, interval training, chords, and chord progressions in one learning path.
         </p>
-        <a
-          href="https://apps.apple.com/app/id6758640410"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="store-btn inline-flex items-center gap-3 rounded-xl font-semibold hover:opacity-90 active:scale-[0.97]"
-          style="padding: 14px 26px; background: var(--color-dark-text); color: var(--color-dark-bg);"
-          aria-label="Download Absolute Ear on the App Store"
-        >
-          <Fragment set:html={AppleSVG} />
-          <div>
-            <div style="font-size:10px; font-weight:500; opacity:0.6; line-height:1; margin-bottom:2px;">
-              Download on the
+        <div class="flex flex-wrap gap-4">
+          <a
+            href={APP_STORE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="store-btn inline-flex items-center gap-3 rounded-xl font-semibold hover:opacity-90 active:scale-[0.97]"
+            style="padding: 14px 26px; background: var(--color-dark-text); color: var(--color-dark-bg);"
+            aria-label="Download Absolute Ear on the App Store"
+          >
+            <Fragment set:html={AppleSVG} />
+            <div>
+              <div style="font-size:10px; font-weight:500; opacity:0.6; line-height:1; margin-bottom:2px;">
+                Download on the
+              </div>
+              <div style="font-size:15px; font-weight:700; line-height:1;">App Store</div>
             </div>
-            <div style="font-size:15px; font-weight:700; line-height:1;">App Store</div>
-          </div>
-        </a>
+          </a>
+          <a
+            href={PLAY_STORE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="store-btn inline-flex items-center gap-3 rounded-xl font-semibold hover:opacity-90 active:scale-[0.97]"
+            style="padding: 14px 26px; border: 1px solid var(--color-dark-border); color: var(--color-dark-text); background: transparent;"
+            aria-label="Get Absolute Ear on Google Play"
+          >
+            <Fragment set:html={PlaySVG} />
+            <div>
+              <div style="font-size:10px; font-weight:500; opacity:0.6; line-height:1; margin-bottom:2px;">
+                Get it on
+              </div>
+              <div style="font-size:15px; font-weight:700; line-height:1;">Google Play</div>
+            </div>
+          </a>
+        </div>
       </div>
     </div>
   </section>
